@@ -7,25 +7,24 @@ import { ENDPOINT, USER_ID } from "../constants";
 import { toast } from "react-toastify";
 import request from "../server";
 import ExpriencesType from "../types/expriences";
-import userType from "../types/usertype";
 import Skill from "../types/skill";
 import ProtfoliosType from "../types/portfolio";
 import EducationType from "../types/education";
 import Loading from "../loading/Loading";
+import userType from "../types/usertype";
 const PortfoliosPage = () => {
   const location = useLocation();
   const [toggle, setToggle] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState("");
   const [expriences, setExpriences] = useState<ExpriencesType[] | null>(null);
-  const [user, setUser] = useState<userType[] | null>(null);
+  const [user, setUser] = useState<userType | null>(null);
   const [skills, setSkills] = useState<Skill[] | null>(null);
   const [portfolios, setPortfolios] = useState<ProtfoliosType[] | null>(null);
   const [education, setEducation] = useState<EducationType[] | null>(null);
-  
 
   console.log(loading, userId);
-  
+
   async function getUser() {
     const userId = Cookies.get(USER_ID);
     if (userId !== undefined) {
@@ -36,9 +35,9 @@ const PortfoliosPage = () => {
       const { data } = await request.get(`users/${userId}`);
       setUser(data);
     } catch (err) {
-      toast.error("serverda hatolik");
+      toast.error("Serverda xatolik yuz berdi");
     } finally {
-      console.log("success");
+      console.log("muvaffaqiyatli bajarildi");
       setLoading(false);
     }
   }
@@ -55,8 +54,6 @@ const PortfoliosPage = () => {
       } = await request.get(`experiences`, {
         params: {
           user: userId,
-          // page: page,
-          // limit: LIMIT,
         },
       });
       setExpriences(data);
@@ -80,8 +77,6 @@ const PortfoliosPage = () => {
       } = await request.get(`skills`, {
         params: {
           user: userId,
-          // page: page,
-          // limit: LIMIT,
         },
       });
       setSkills(data);
@@ -105,8 +100,6 @@ const PortfoliosPage = () => {
       } = await request.get(`portfolios`, {
         params: {
           user: userId,
-          // page: page,
-          // limit: LIMIT,
         },
       });
       setPortfolios(data);
@@ -130,8 +123,6 @@ const PortfoliosPage = () => {
       } = await request.get(`education`, {
         params: {
           user: userId,
-          // page: page,
-          // limit: LIMIT,
         },
       });
       setEducation(data);
@@ -143,50 +134,17 @@ const PortfoliosPage = () => {
     }
   }
 
-  // Smooth scrolling using React
-  const smoothScroll = (target: HTMLElement) => {
-    window.scrollTo({
-      top: target.offsetTop,
-      behavior: "smooth",
-    });
-  };
-
-  const handleScrollClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    const targetId = event.currentTarget.getAttribute("href")?.substring(1);
-    const target = document.getElementById(targetId || "");
-    if (target) {
-      smoothScroll(target);
-    }
-  };
-
   useEffect(() => {
-    // Handle click events for smooth scrolling
-    document
-      .querySelectorAll<HTMLAnchorElement>(
-        'a.js-scroll-trigger[href*="#"]:not([href="#"])'
-      )
-      .forEach((link) => {
-        link.addEventListener("click", handleScrollClick);
-      });
-    // Handle click events for smooth scrolling
-    //fetching
     getExpriences();
     getUser();
     getSkills();
     getPortfolios();
     getEducation();
-    //fetching
   }, [location.pathname]);
-  // Smooth scrolling using React
-
-  // toggle
 
   const handleToggle = () => {
     setToggle(!toggle);
   };
-
-  // toggle
 
   return (
     <Fragment>
@@ -273,12 +231,12 @@ const PortfoliosPage = () => {
                 <span className="text-primary">{user?.lastName}</span>
               </h1>
               <div className="subheading mb-5">
-                {user?.address}, · {user?.phoneNumber} ·
-                <a href="mailto:name@email.com">{user?.email}</a>
+                {user?.address}, · {user?.phoneNumber} ·{" "}
+                <a href={`mailto:${user?.email}`}>{user?.email}</a>
               </div>
               <p className="mb-5">
                 I am experienced in leveraging agile frameworks to provide a
-                robust synopsis for high level overviews. Iterative approaches
+                robust synopsis for high-level overviews. Iterative approaches
                 to corporate strategy foster collaborative thinking to further
                 the overall value proposition.
               </p>
