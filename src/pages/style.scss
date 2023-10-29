@@ -1,0 +1,41 @@
+.Name__ {
+  max-width: 350px;
+  @media (max-width: 600px) {
+    font-size: 45px;
+  }
+}
+
+h2 {
+  @media (max-width: 600px) {
+    font-size: 45px !important;
+  }
+  @media (max-width: 380pxpx) {
+    font-size: 35px !important;
+  }
+}
+
+.subheading {
+  @media (max-width: 460px ) {
+    a {
+      font-size: 17px;
+    }
+  }
+}
+
+.port {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  
+  li {
+    margin-bottom: 30px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;   
+    @media (max-width: 460px) {
+      width: 100%;
+    }
+    img {
+      width: 100%;
+    }
+  }
+}
