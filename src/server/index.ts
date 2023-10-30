@@ -2,7 +2,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { ENDPOINT, TOKEN } from "../constants";
-import { toast } from "react-toastify";
 
 const request = axios.create({
   baseURL: `${ENDPOINT}api/v1/`,

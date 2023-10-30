@@ -1,9 +1,8 @@
 import { Fragment, useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import { useLocation } from "react-router-dom";
 
 import "./style.scss";
-import { ENDPOINT, USER_ID } from "../constants";
+import { ENDPOINT } from "../constants";
 import { toast } from "react-toastify";
 import request from "../server";
 import ExpriencesType from "../types/expriences";
@@ -12,8 +11,10 @@ import ProtfoliosType from "../types/portfolio";
 import EducationType from "../types/education";
 import Loading from "../loading/Loading";
 import userType from "../types/usertype";
+import ContactUs from "../contact/ContactUs";
 const PortfoliosPage = () => {
   const location = useLocation();
+
   const [toggle, setToggle] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState("");
@@ -26,13 +27,11 @@ const PortfoliosPage = () => {
   console.log(loading, userId);
 
   async function getUser() {
-    const userId = Cookies.get(USER_ID);
-    if (userId !== undefined) {
-      setUserId(userId);
-    }
     setLoading(true);
     try {
-      const { data } = await request.get(`users/${userId}`);
+      const { data } = await request.get(
+        "users/653ec7a5431aba00182b8ee2" || `users/${userId}`
+      );
       setUser(data);
     } catch (err) {
       toast.error("Serverda xatolik yuz berdi");
@@ -42,20 +41,17 @@ const PortfoliosPage = () => {
     }
   }
 
+  console.log(user);
+
   async function getExpriences() {
-    const userId = Cookies.get(USER_ID);
-    if (userId !== undefined) {
-      setUserId(userId);
-    }
     setLoading(true);
     try {
       const {
         data: { data },
-      } = await request.get(`experiences`, {
-        params: {
-          user: userId,
-        },
-      });
+      } = await request.get(
+        `experiences?user=653ec7a5431aba00182b8ee2` ||
+          `exprtirnces?user=${userId}`
+      );
       setExpriences(data);
     } catch (err) {
       toast.error("serverda hatolik");
@@ -66,19 +62,13 @@ const PortfoliosPage = () => {
   }
 
   async function getSkills() {
-    const userId = Cookies.get(USER_ID);
-    if (userId !== undefined) {
-      setUserId(userId);
-    }
     setLoading(true);
     try {
       const {
         data: { data },
-      } = await request.get(`skills`, {
-        params: {
-          user: userId,
-        },
-      });
+      } = await request.get(
+        `skills?user=653ec7a5431aba00182b8ee2` || `skills?user=${userId}`
+      );
       setSkills(data);
     } catch (err) {
       toast.error("serverda hatolik");
@@ -89,19 +79,14 @@ const PortfoliosPage = () => {
   }
 
   async function getPortfolios() {
-    const userId = Cookies.get(USER_ID);
-    if (userId !== undefined) {
-      setUserId(userId);
-    }
     setLoading(true);
     try {
       const {
         data: { data },
-      } = await request.get(`portfolios`, {
-        params: {
-          user: userId,
-        },
-      });
+      } = await request.get(
+        `portfolios?user=653ec7a5431aba00182b8ee2` ||
+          `portfolios?user=${userId}`
+      );
       setPortfolios(data);
     } catch (err) {
       toast.error("serverda hatolik");
@@ -112,19 +97,13 @@ const PortfoliosPage = () => {
   }
 
   async function getEducation() {
-    const userId = Cookies.get(USER_ID);
-    if (userId !== undefined) {
-      setUserId(userId);
-    }
     setLoading(true);
     try {
       const {
         data: { data },
-      } = await request.get(`education`, {
-        params: {
-          user: userId,
-        },
-      });
+      } = await request.get(
+        `education?user=653ec7a5431aba00182b8ee2` || `education?user=${userId}`
+      );
       setEducation(data);
     } catch (err) {
       toast.error("serverda hatolik");
@@ -140,6 +119,7 @@ const PortfoliosPage = () => {
     getSkills();
     getPortfolios();
     getEducation();
+    setUserId(location.search.split("?")[1]);
   }, [location.pathname]);
 
   const handleToggle = () => {
@@ -390,7 +370,7 @@ const PortfoliosPage = () => {
             className="resume-section p-3 p-lg-5 d-flex flex-column"
             id="interests"
           >
-            <div className="my-auto">
+            {/* <div className="my-auto">
               <h2 className="mb-5">Interests</h2>
               <p>
                 Apart from being a web developer, I enjoy most of my time being
@@ -404,7 +384,8 @@ const PortfoliosPage = () => {
                 spend a large amount of my free time exploring the latest
                 technolgy advancements in the front-end web development world.
               </p>
-            </div>
+            </div> */}
+            <ContactUs />
           </section>
 
           <section
