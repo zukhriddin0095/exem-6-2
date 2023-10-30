@@ -137,7 +137,10 @@ const PortfoliosPage = () => {
           <span className="d-none d-lg-block">
             <img
               className="img-fluid img-profile rounded-circle mx-auto mb-2"
-              src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg"
+              src={
+                `https://ap-portfolio-backend.up.railway.app/upload/${user?.photo}` ||
+                "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg"
+              }
               alt=""
             />
           </span>
