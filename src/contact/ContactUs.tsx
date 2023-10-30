@@ -40,6 +40,12 @@ const ContactUs: React.FC<ContactUsProps> = ({ userId }) => {
       toast.success("Success")
     } finally {
       setLoading(false)
+      setFormData({
+        title: "",
+        whom: userId || "653ec7a5431aba00182b8ee2",
+        user: "",
+        message: "",
+      });
     }
     console.log(formData);
   }
