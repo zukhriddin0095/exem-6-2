@@ -30,7 +30,7 @@ const PortfoliosPage = () => {
     setLoading(true);
     try {
       const { data } = await request.get(
-        "users/653ec7a5431aba00182b8ee2" || `users/${userId}`
+        `users/${userId}` || "users/653ec7a5431aba00182b8ee2"
       );
       setUser(data);
     } catch (err) {
@@ -49,8 +49,8 @@ const PortfoliosPage = () => {
       const {
         data: { data },
       } = await request.get(
-        `experiences?user=653ec7a5431aba00182b8ee2` ||
-          `exprtirnces?user=${userId}`
+        `exprtirnces?user=${userId}` ||
+          `experiences?user=653ec7a5431aba00182b8ee2`
       );
       setExpriences(data);
     } catch (err) {
@@ -67,7 +67,7 @@ const PortfoliosPage = () => {
       const {
         data: { data },
       } = await request.get(
-        `skills?user=653ec7a5431aba00182b8ee2` || `skills?user=${userId}`
+        `skills?user=${userId}` || `skills?user=653ec7a5431aba00182b8ee2`
       );
       setSkills(data);
     } catch (err) {
@@ -84,8 +84,8 @@ const PortfoliosPage = () => {
       const {
         data: { data },
       } = await request.get(
-        `portfolios?user=653ec7a5431aba00182b8ee2` ||
-          `portfolios?user=${userId}`
+        `portfolios?user=${userId}` ||
+          `portfolios?user=653ec7a5431aba00182b8ee2`
       );
       setPortfolios(data);
     } catch (err) {
@@ -102,7 +102,7 @@ const PortfoliosPage = () => {
       const {
         data: { data },
       } = await request.get(
-        `education?user=653ec7a5431aba00182b8ee2` || `education?user=${userId}`
+        `education?user=${userId}` || `education?user=653ec7a5431aba00182b8ee2`
       );
       setEducation(data);
     } catch (err) {

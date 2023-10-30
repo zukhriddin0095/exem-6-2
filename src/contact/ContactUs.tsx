@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
+import "./style.scss";
+import request from "../server";
 
-
-import "./style.scss"
 const ContactUs: React.FC = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    website: "",
+    title: "",
+    whom: "",
+    user: "",
     message: "",
   });
 
@@ -22,11 +21,17 @@ const ContactUs: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // Formni yuborish uchun kerakli kodni qo'shing
+    try {
+      await request.post(`messages/653ec7a5431aba00182b8ee2`, formData);
+    } finally {
+      console.log("s");
+    }
     console.log(formData);
-  };
+  }
+
+  
 
   return (
     <div className="container">
@@ -36,48 +41,37 @@ const ContactUs: React.FC = () => {
           <div className="input-data">
             <input
               type="text"
-              name="firstName"
-              value={formData.firstName}
+              name="title"
+              value={formData.title}
               onChange={handleChange}
               required
             />
             <div className="underline"></div>
-            <label>First Name</label>
+            <label>title</label>
           </div>
           <div className="input-data">
             <input
               type="text"
-              name="lastName"
-              value={formData.lastName}
+              name="whom"
+              value={formData.whom}
               onChange={handleChange}
               required
             />
             <div className="underline"></div>
-            <label>Last Name</label>
+            <label>whom</label>
           </div>
         </div>
         <div className="form-row">
           <div className="input-data">
             <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <div className="underline"></div>
-            <label>Email Address</label>
-          </div>
-          <div className="input-data">
-            <input
               type="text"
-              name="website"
-              value={formData.website}
+              name="user"
+              value={formData.user}
               onChange={handleChange}
               required
             />
             <div className="underline"></div>
-            <label>Website Name</label>
+            <label>phoneNumber or Email Address</label>
           </div>
         </div>
         <div className="form-row">
@@ -95,7 +89,6 @@ const ContactUs: React.FC = () => {
           </div>
           <div className="form-row submit-btn">
             <div className="input-data">
-              <div className="inner"></div>
               <button type="submit">Submit</button>
             </div>
           </div>
