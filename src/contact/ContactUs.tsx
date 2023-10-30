@@ -2,14 +2,25 @@ import React, { useState } from "react";
 
 import "./style.scss";
 import request from "../server";
+import { toast } from "react-toastify";
 
-const ContactUs: React.FC = () => {
+interface ContactUsProps {
+  userId: string;
+  // other prop types
+}
+
+const ContactUs: React.FC<ContactUsProps> = ({ userId }) => {
+  console.log(userId);
+  
+  const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     title: "",
-    whom: "",
+    whom: userId || "653ec7a5431aba00182b8ee2",
     user: "",
     message: "",
   });
+  console.log(userId);
+  
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -23,15 +34,15 @@ const ContactUs: React.FC = () => {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true)
     try {
-      await request.post(`messages/653ec7a5431aba00182b8ee2`, formData);
+      await request.post(`messages`, formData);
+      toast.success("Success")
     } finally {
-      console.log("s");
+      setLoading(false)
     }
     console.log(formData);
   }
-
-  
 
   return (
     <div className="container">
@@ -48,17 +59,6 @@ const ContactUs: React.FC = () => {
             />
             <div className="underline"></div>
             <label>title</label>
-          </div>
-          <div className="input-data">
-            <input
-              type="text"
-              name="whom"
-              value={formData.whom}
-              onChange={handleChange}
-              required
-            />
-            <div className="underline"></div>
-            <label>whom</label>
           </div>
         </div>
         <div className="form-row">
@@ -89,7 +89,7 @@ const ContactUs: React.FC = () => {
           </div>
           <div className="form-row submit-btn">
             <div className="input-data">
-              <button type="submit">Submit</button>
+              <button className="contact-btn" type="submit">{loading ? "loading . . ." : "Submit"}</button>
             </div>
           </div>
         </div>

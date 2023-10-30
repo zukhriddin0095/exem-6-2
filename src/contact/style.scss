@@ -34,6 +34,7 @@
 }
 .container form .form-row {
   display: flex;
+  flex-direction: column;
   margin: 32px 0;
 }
 form .form-row .input-data {
@@ -141,4 +142,19 @@ form .form-row .textarea {
   .submit-btn .input-data {
     width: 40% !important;
   }
+}
+
+
+.contact-btn {
+  padding: 8px 40px;
+  border: none;
+  background: -webkit-linear-gradient(
+    right,
+    #56d8e4,
+    #9f01ea,
+    #56d8e4,
+    #9f01ea
+  );
+  border-radius: 8px;
+  color: #fff;
 }

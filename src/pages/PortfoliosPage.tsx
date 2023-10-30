@@ -30,7 +30,7 @@ const PortfoliosPage = () => {
     setLoading(true);
     try {
       const { data } = await request.get(
-        `users/${userId}` || "users/653ec7a5431aba00182b8ee2"
+        "users/653ec7a5431aba00182b8ee2" || `users/${userId}`
       );
       setUser(data);
     } catch (err) {
@@ -49,8 +49,8 @@ const PortfoliosPage = () => {
       const {
         data: { data },
       } = await request.get(
-        `exprtirnces?user=${userId}` ||
-          `experiences?user=653ec7a5431aba00182b8ee2`
+        `experiences?user=653ec7a5431aba00182b8ee2` ||
+          `experiences?user=${userId}`
       );
       setExpriences(data);
     } catch (err) {
@@ -67,7 +67,7 @@ const PortfoliosPage = () => {
       const {
         data: { data },
       } = await request.get(
-        `skills?user=${userId}` || `skills?user=653ec7a5431aba00182b8ee2`
+        `skills?user=653ec7a5431aba00182b8ee2` || `skills?user=${userId}`
       );
       setSkills(data);
     } catch (err) {
@@ -84,8 +84,8 @@ const PortfoliosPage = () => {
       const {
         data: { data },
       } = await request.get(
-        `portfolios?user=${userId}` ||
-          `portfolios?user=653ec7a5431aba00182b8ee2`
+        `portfolios?user=653ec7a5431aba00182b8ee2` ||
+          `portfolios?user=${userId}`
       );
       setPortfolios(data);
     } catch (err) {
@@ -102,7 +102,7 @@ const PortfoliosPage = () => {
       const {
         data: { data },
       } = await request.get(
-        `education?user=${userId}` || `education?user=653ec7a5431aba00182b8ee2`
+        `education?user=653ec7a5431aba00182b8ee2` || `education?user=${userId}`
       );
       setEducation(data);
     } catch (err) {
@@ -120,7 +120,7 @@ const PortfoliosPage = () => {
     getPortfolios();
     getEducation();
     setUserId(location.search.split("?")[1]);
-  }, [location.pathname]);
+  }, [location.pathname, userId]);
 
   const handleToggle = () => {
     setToggle(!toggle);
@@ -185,7 +185,7 @@ const PortfoliosPage = () => {
             </li>
             <li className="nav-item">
               <a className="nav-link js-scroll-trigger" href="#interests">
-                Interests
+                Contact Us
               </a>
             </li>
             <li className="nav-item">
@@ -385,7 +385,7 @@ const PortfoliosPage = () => {
                 technolgy advancements in the front-end web development world.
               </p>
             </div> */}
-            <ContactUs />
+            <ContactUs userId={userId} />
           </section>
 
           <section
